@@ -130,14 +130,11 @@ function run(){
           'GET',
           url
         );
-        alert('hello')
 
         placesRequest.send();
         placesRequest.onload = function(){
           var data = JSON.parse(this.response);
-          alert('place request') // doesnm't reach this statement
           if(this.status >= 200 && this.status < 400){
-            console.log(data.summary.totalResults);
             var results = data.results;
             if(results == null){
               console.log("NO RESULTS!");
@@ -146,9 +143,7 @@ function run(){
             }
             for(var i = 0; i < results.length; i++){
               pois.push(results[i]);
-            }
-            var name = data.results[0].poi.name;
-            
+            }            
             display(); 
           }else{
             background(255)
@@ -206,12 +201,9 @@ function display(){
 }
 
 function createPage(){
-  alert('createpage')
   var list = createDiv("").class("screen");
   for(var i = 0; i < 3; i++){
     var poi = pois[page * 3 + i];
-    //alert(typeof poi)
-    //alert(typeof poi.poi.name)
     var div = createDiv(poi.poi.name).class("item").position(25,windowHeight/3*i + 25);
     var address = createSpan(poi.address.freeformAddress).class("desc");
     div.child(address);
@@ -228,7 +220,6 @@ function decreasePage(){
   next.hide();
   pages[page].hide();
   page--;
-  console.log(page);
   display(pois);
 }
 function increasePage(){
@@ -236,7 +227,6 @@ function increasePage(){
   next.hide();
   pages[pagee].hide();
   page++;
-  console.log(page);
   display(pois);
 }
 
